@@ -1,0 +1,12 @@
+server:
+  shutdown: graceful
+
+spring:
+  devtools:
+    add-properties: true
+  application:
+    name: EasyFoodManaging
+
+logging:
+  level:
+    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG

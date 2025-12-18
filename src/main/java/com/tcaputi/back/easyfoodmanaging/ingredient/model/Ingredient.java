@@ -1,0 +1,39 @@
+package com.tcaputi.back.easyfoodmanaging.ingredient.model;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+public class Ingredient{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+
+    private Double proteins;
+    private Double fats;
+    private Double carbohydrates;
+    private Double calories;
+
+    private Double quantity;        // total quantity for recipe usage (openQuantity + unitStock * unitWeight)
+
+    @Column(unique = true)
+    private String ean13;
+
+    @Enumerated(EnumType.STRING)
+    private Unit unit;
+
+    private Integer unitStock;      // number of full units (e.g., 5 pots)
+    private Double openQuantity;    // quantity of an open unit (e.g., 150g left)
+    private Double unitWeight;      // weight of one unit (e.g., 450g for a Skyr pot)
+
+
+
+}
