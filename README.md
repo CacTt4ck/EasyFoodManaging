@@ -90,5 +90,10 @@ Contributions are welcome!
 4. Push to the branch (git push origin feature/AmazingFeature).
 5. Open a Pull Request.
 
+## 🛣️ Roadmap
+
+- See the [Roadmap](https://github.com/users/CacTt4ck/projects/1) for a list of proposed features.
+- See the [open issues](https://github.com/CacTt4ck/EasyFoodManaging/issues) for a list of issues.
+
 ## 📝 License
 Distributed under the MIT License. See LICENSE for more information.
