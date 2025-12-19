@@ -1,6 +1,6 @@
 # 🥗 EasyFoodManaging
 
-![Build Status](https://img.shields.io/github/actions/workflow/status/CacTt4ck/EasyFoodManaging/ci.yml?branch=main&label=Build&logo=github)
+![Build Status](https://img.shields.io/github/actions/workflow/status/CacTt4ck/EasyFoodManaging/ci.yml?branch=master&label=Build&logo=github)
 ![Java Version](https://img.shields.io/badge/Java-21-orange?logo=java)
 ![Spring Boot](https://img.shields.io/badge/Spring_Boot-4.x-green?logo=springboot)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-18-blue?logo=postgresql)
