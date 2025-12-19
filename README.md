@@ -9,6 +9,7 @@
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-18-blue?logo=postgresql)
 ![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker)
 ![License](https://img.shields.io/github/license/CacTt4ck/EasyFoodManaging)
+![GitHub contributors](https://img.shields.io/github/contributors/CacTt4ck/EasyFoodManaging)
 
 **EasyFoodManaging** is a comprehensive Backend application designed to streamline food management. It allows users to manage ingredients, compose recipes, and interact with external nutritional data sources.
 
