@@ -1,0 +1,28 @@
+services:
+  app:
+    build: .
+    container_name: easyfood-app
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=postgres
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/easyfooddb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=secret
+    depends_on:
+      - db
+
+  db:
+    image: postgres:18-alpine
+    container_name: easyfood-postgres
+    environment:
+      - POSTGRES_DB=easyfooddb
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=secret
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:
