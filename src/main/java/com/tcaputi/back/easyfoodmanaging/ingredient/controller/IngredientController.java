@@ -12,6 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Tag(name = "Ingredients", description = "Operations related to ingredients")
 @RestController
 @AllArgsConstructor
@@ -35,6 +37,13 @@ class IngredientController {
     @GetMapping("/ean/{ean13}")
     public IngredientDto getIngredientByEan13(@PathVariable String ean13) {
         return convertToDto(ingredientService.getIngredientByEan13(ean13));
+    }
+
+    @GetMapping( value = "/search/{name}")
+    public List<IngredientDto> searchIngredientsByName(@PathVariable String name) {
+        return ingredientService.searchIngredientsByName(name).stream()
+                .map(this::convertToDto)
+                .toList();
     }
 
     @PostMapping

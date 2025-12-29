@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -36,17 +37,21 @@ public class IngredientService {
         return ingredientRepository.findByEan13(ean13).orElseThrow(() -> new IngredientException("Ingredient not found for ean13: [" + ean13 + "]"));
     }
 
+    @Transactional(readOnly = true)
+    public List<Ingredient> searchIngredientsByName(String name) {
+        return ingredientRepository.findByNameContaining(name).orElseThrow(() -> new IngredientException("No ingredients found for name: [" + name + "]"));
+    }
+
     public Ingredient addIngredient(Ingredient ingredient) {
         if (ingredient.getEan13() != null) {
+            // Adds ingredient; merges quantity if EAN matches
             return ingredientRepository.findByEan13(ingredient.getEan13())
                     .map(existing -> {
-                        // 🛒 Ajout de la quantité achetée au stock existant
                         log.info("Adding quantity [{}] to existing ingredient [{}]", ingredient.getQuantity(), existing.getName());
                         existing.setQuantity(existing.getQuantity() + ingredient.getQuantity());
                         return ingredientRepository.save(existing);
                     })
                     .orElseGet(() -> {
-                        // 🌍 Si pas trouvé localement, aller chercher sur OpenFoodFacts
                         log.info("Fetching ingredient from OpenFoodFacts for EAN: [{}]", ingredient.getEan13());
                         Optional<Ingredient> fromOpenFoodFacts = openFoodFactsService.fetchIngredientFromOpenFoodFacts(ingredient.getEan13());
                         return fromOpenFoodFacts.map(ingredientRepository::save)

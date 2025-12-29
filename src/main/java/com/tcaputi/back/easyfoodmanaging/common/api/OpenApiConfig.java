@@ -9,9 +9,9 @@ import org.springframework.context.annotation.Configuration;
 public class OpenApiConfig {
 
     @Bean
-    public OpenAPI stockAndCookOpenApi() {
+    public OpenAPI easyFoodManagingOpenApi() {
         return new OpenAPI().info(new Info()
-                .title("Stock&Cook API")
+                .title("EasyFoodManaging API")
                 .description("Manage food stock and recipes easily!")
                 .version("v1")
         );

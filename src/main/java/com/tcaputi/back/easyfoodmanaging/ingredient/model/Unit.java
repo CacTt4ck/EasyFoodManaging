@@ -27,7 +27,7 @@ public enum Unit {
     PINCH("pinch"),      // Pincée
     SLICE("slice");       // Tranche
 
-    private String abbreviation;
+    private final String abbreviation;
 
     Unit(String abbreviation) {
         this.abbreviation = abbreviation;
