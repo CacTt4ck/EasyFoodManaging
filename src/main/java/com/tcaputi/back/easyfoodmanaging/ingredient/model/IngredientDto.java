@@ -1,6 +1,5 @@
 package com.tcaputi.back.easyfoodmanaging.ingredient.model;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
@@ -15,7 +14,6 @@ public class IngredientDto {
 
     private Long id;
 
-    @NotBlank
     private String name;
 
     @PositiveOrZero
