@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.tcaputi.back'
-version = '0.0.1-SNAPSHOT'
+version = findProperty('version') ?: '0.0.1-SNAPSHOT'
 description = 'EasyFoodManaging'
 
 java {
