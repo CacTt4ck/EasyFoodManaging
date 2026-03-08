@@ -16,7 +16,6 @@ import java.util.Optional;
 
 @Slf4j
 @Service
-@Transactional
 @AllArgsConstructor
 public class IngredientService {
 
@@ -62,46 +61,13 @@ public class IngredientService {
         }
     }
 
+    @Transactional
     public void deleteIngredient(Long id) {
         ingredientRepository.deleteById(id);
     }
 
+    @Transactional
     public Ingredient updateIngredient(Ingredient ingredient) {
-        return ingredientRepository.save(ingredient);
-    }
-
-    public Ingredient consumeIngredient(Long id, double amountInGrams) {
-        Ingredient ingredient = ingredientRepository.findById(id)
-                .orElseThrow(() -> new IngredientException("Ingredient not found for id: [" + id + "]"));
-
-        double totalAvailable = (ingredient.getUnitStock() * ingredient.getUnitWeight())
-                + (ingredient.getOpenQuantity() != null ? ingredient.getOpenQuantity() : 0.0);
-
-        if (amountInGrams > totalAvailable) {
-            throw new IngredientException("Not enough stock for ingredient id: [" + id + "]. Requested: "
-                    + amountInGrams + "g, Available: " + totalAvailable + "g");
-        }
-
-        double remaining = amountInGrams;
-
-        if (ingredient.getOpenQuantity() != null && ingredient.getOpenQuantity() > 0) {
-            double usedFromOpen = Math.min(ingredient.getOpenQuantity(), remaining);
-            ingredient.setOpenQuantity(ingredient.getOpenQuantity() - usedFromOpen);
-            remaining -= usedFromOpen;
-        }
-
-        while (remaining > 0 && ingredient.getUnitStock() > 0) {
-            ingredient.setUnitStock(ingredient.getUnitStock() - 1);
-            double usedFromNewUnit = Math.min(ingredient.getUnitWeight(), remaining);
-            remaining -= usedFromNewUnit;
-            ingredient.setOpenQuantity(ingredient.getUnitWeight() - usedFromNewUnit);
-        }
-
-        // Recalculer la quantité totale
-        double totalQuantity = (ingredient.getUnitStock() * ingredient.getUnitWeight())
-                + (ingredient.getOpenQuantity() != null ? ingredient.getOpenQuantity() : 0.0);
-        ingredient.setQuantity(totalQuantity);
-
         return ingredientRepository.save(ingredient);
     }
 }

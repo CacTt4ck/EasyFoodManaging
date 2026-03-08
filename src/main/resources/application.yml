@@ -1,11 +1,31 @@
 server:
   shutdown: graceful
 
+front:
+  url: http://127.0.0.1:5173
+
 spring:
   devtools:
     add-properties: true
   application:
     name: EasyFoodManaging
+  datasource:
+    url: jdbc:postgresql://url:port/database
+    driver-class-name: org.postgresql.Driver
+    username: username
+    password: password
+    hikari:
+      maximum-pool-size: 10
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+    database: PostgreSQL
 
 logging:
   level:
