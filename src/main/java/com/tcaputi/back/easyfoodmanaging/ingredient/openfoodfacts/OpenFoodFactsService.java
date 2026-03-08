@@ -1,31 +1,27 @@
 package com.tcaputi.back.easyfoodmanaging.ingredient.openfoodfacts;
 
 import com.tcaputi.back.easyfoodmanaging.ingredient.model.Ingredient;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.web.client.RestClient;
 
 import java.util.Optional;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class OpenFoodFactsService {
 
     private static final String OPENFOODFACTS_URL = "https://world.openfoodfacts.org/api/v0/product/{ean}.json";
-    private final RestTemplate restTemplate;
-
-    public OpenFoodFactsService() {
-        this.restTemplate = new RestTemplate();
-    }
+    private final RestClient restClient;
 
     public Optional<Ingredient> fetchIngredientFromOpenFoodFacts(String ean13) {
         try {
-            String url = UriComponentsBuilder.fromUriString(OPENFOODFACTS_URL)
-                    .buildAndExpand(ean13)
-                    .toUriString();
-
-            OpenFoodFactsResponse response = restTemplate.getForObject(url, OpenFoodFactsResponse.class);
+            OpenFoodFactsResponse response = restClient.get()
+                    .uri(OPENFOODFACTS_URL, ean13)
+                    .retrieve()
+                    .body(OpenFoodFactsResponse.class);
 
             if (response != null && response.getStatus() == 1) {
                 Ingredient ingredient = getIngredient(ean13, response);

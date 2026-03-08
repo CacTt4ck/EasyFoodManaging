@@ -1,6 +1,9 @@
 server:
   shutdown: graceful
 
+front:
+  url: http://127.0.0.1:5173
+
 spring:
   devtools:
     add-properties: true
